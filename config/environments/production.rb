@@ -75,7 +75,7 @@ Rails.application.configure do
   config.hosts << /[a-z0-9]+\.ngrok\.io/
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: 'yourapp.render.com', protocol: 'https' }
+  config.action_mailer.default_url_options = { host: 'https://ticketfusionapi.onrender.com', protocol: 'https' }
   
   config.action_mailer.smtp_settings = {
     address:         'smtp.gmail.com',
