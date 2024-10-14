@@ -1,0 +1,77 @@
+<%= form_with(model: ticket) do |form| %>
+  <% if ticket.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+
+      <ul>
+        <% ticket.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :event_id, style: "display: block" %>
+    <%= form.text_field :event_id %>
+  </div>
+
+  <div>
+    <%= form.label :price, style: "display: block" %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div>
+    <%= form.label :ticket_type, style: "display: block" %>
+    <%= form.text_field :ticket_type %>
+  </div>
+
+  <div>
+    <%= form.label :total_tickets, style: "display: block" %>
+    <%= form.text_field :total_tickets %>
+  </div>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :start_time, style: "display: block" %>
+    <%= form.time_field :start_time %>
+  </div>
+
+  <div>
+    <%= form.label :end_time, style: "display: block" %>
+    <%= form.time_field :end_time %>
+  </div>
+
+  <div>
+    <%= form.label :max_quantity, style: "display: block" %>
+    <%= form.number_field :max_quantity %>
+  </div>
+
+  <div>
+    <%= form.label :group_size, style: "display: block" %>
+    <%= form.number_field :group_size %>
+  </div>
+
+  <div>
+    <%= form.label :is_group_ticket, style: "display: block" %>
+    <%= form.check_box :is_group_ticket %>
+  </div>
+
+  <div>
+    <%= form.label :qr_code_data, style: "display: block" %>
+    <%= form.text_field :qr_code_data %>
+  </div>
+
+  <div>
+    <%= form.label :used, style: "display: block" %>
+    <%= form.check_box :used %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
