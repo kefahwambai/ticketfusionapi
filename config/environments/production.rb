@@ -73,6 +73,8 @@ Rails.application.configure do
   config.i18n.fallbacks = true
 
   config.hosts << /[a-z0-9]+\.ngrok\.io/
+  config.hosts << "ticketfusionapi.onrender.com"
+  
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: 'https://ticketfusionapi.onrender.com', protocol: 'https' }
