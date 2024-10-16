@@ -50,7 +50,7 @@ gem 'letter_opener', group: :development
 gem 'mailersend-ruby'
 gem 'vonage'
 gem 'dotenv-rails'
-gem 'sprockets-rails', group: :assets
+# gem 'sprockets-rails', group: :assets
 
 
 
