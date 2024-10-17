@@ -27,23 +27,7 @@ class ApplicationController < ActionController::Base
       render json: { message: 'Invalid or missing token' }, status: :unauthorized unless action_name == 'index' || action_name == 'show'
     end
   end
-  
-  
-  
-  
-
-  def current_user!
-    # Rails.logger.debug "Attempting to find user by ID: #{payload['user_id']}"
-    @current_user = User.find_by(id: payload['user_id'])
-  
-    if @current_user
-      # Rails.logger.debug "Found user: #{@current_user.id}"
-    else
-      Rails.logger.debug "No user found for ID: #{payload['user_id']}"
-    end
-  end
-  
-  
+   
 
   private
 
