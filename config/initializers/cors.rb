@@ -1,6 +1,6 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "https://ticketfusion-admin.vercel.app", "https://jtickets.vercel.app" ,
+    origins "https://ticketfusion-admin.vercel.app", "https://jtickets.vercel.app"
     #  "http://localhost:3010", "http://localhost:4040"
 
     resource "*",
@@ -9,4 +9,3 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       credentials: true
   end
 end
-
