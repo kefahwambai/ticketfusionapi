@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_23_073926) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_23_101018) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_23_073926) do
     t.datetime "updated_at", null: false
     t.bigint "mpesas_id", default: 0
     t.string "promo_code"
+    t.integer "quantity"
     t.index ["mpesas_id"], name: "index_orders_on_mpesas_id"
     t.index ["sales_id"], name: "index_orders_on_sales_id"
     t.index ["ticket_id"], name: "index_orders_on_ticket_id"
@@ -149,6 +150,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_23_073926) do
   add_foreign_key "events", "users"
   add_foreign_key "orders", "sales", column: "sales_id"
   add_foreign_key "orders", "tickets"
-  add_foreign_key "sales", "events", on_delete: :cascade
+  add_foreign_key "sales", "events"
   add_foreign_key "sales", "tickets"
 end

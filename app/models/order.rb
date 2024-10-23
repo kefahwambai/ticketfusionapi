@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   belongs_to :sale, class_name: 'Sale', foreign_key: 'sales_id' 
 
   validates :ticket_id, presence: true
+  # validates :quantity, presence: true
   validates :sales_id, presence: true 
   validates :phoneNumber, presence: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }

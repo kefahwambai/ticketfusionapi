@@ -8,7 +8,8 @@ class OrdersController < InheritedResources::Base
 
         quantity_sold = params[:order][:quantity].to_i
 
-        if ticket.max_quantity >= quantity_sold
+
+        if ticket && ticket.max_quantity && ticket.max_quantity >= quantity_sold
           ticket.update!(max_quantity: ticket.max_quantity - quantity_sold)
 
           event = ticket.event
@@ -24,8 +25,9 @@ class OrdersController < InheritedResources::Base
 
           render json: @order, status: :created
         else
-          raise ActiveRecord::Rollback, 'Not enough tickets'
+          Rails.logger.error "Not enough tickets left"
           render json: { errors: ['Not enough tickets left for this event'] }, status: :unprocessable_entity
+          raise ActiveRecord::Rollback
         end
       else
         render json: { errors: @order.errors.full_messages }, status: :unprocessable_entity
@@ -39,7 +41,7 @@ class OrdersController < InheritedResources::Base
   private
 
   def order_params
-    params.require(:order).permit(:ticket_id, :sales_id, :phoneNumber, :email, :promo_code)
+    params.require(:order).permit(:ticket_id, :sales_id, :phoneNumber, :email, :promo_code, :quantity)
   end
 
   def prepend_country_code(phone_number)
