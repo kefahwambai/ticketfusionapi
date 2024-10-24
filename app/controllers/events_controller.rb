@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   def show
     event = Event.includes(:tickets).find_by(id: params[:id])
     if event
-      event_data = event.as_json
+      event_data = event.as_json(include :tickets)
       event_data[:image_url] = event.image.url if event.image.present?
       render json: event_data, status: :ok
     else
