@@ -2,7 +2,8 @@ class Event < ApplicationRecord
   belongs_to :user
   has_many :tickets
   has_many :sales
-  mount_uploader :image, ImageUploader
+  # mount_uploader :image, ImageUploader
+  has_one_attached :image
 
   validates :name, :description, :date, :location, :image, presence: true
 
