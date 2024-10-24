@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     event = Event.find_by(id: params[:id])
     if event
       event_data = event.as_json
-      event_data[:image_url] = url_for(event.image) if event.image.attached?
+      event_data[:image_url] = event.image.url if event.image.present?
       render json: event_data, status: :ok
     else
       render json: { error: 'Event not found or unauthorized.' }, status: :not_found
