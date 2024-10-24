@@ -19,6 +19,7 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load if defined?(Dotenv)
 module Tickadmin
   class Application < Rails::Application
 
