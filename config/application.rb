@@ -19,9 +19,10 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-Dotenv::Railtie.load if defined?(Dotenv)
 module Tickadmin
   class Application < Rails::Application
+    Rails.application.middleware.insert_before 0, Rack::Attack
+
 
     config.before_configuration do
       env_file = File.join(Rails.root, 'config', 'local_env.yml')

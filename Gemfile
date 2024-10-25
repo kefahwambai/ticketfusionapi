@@ -51,6 +51,8 @@ gem 'mailersend-ruby'
 gem 'vonage'
 gem 'dotenv-rails'
 gem 'cloudinary'
+gem 'rack-attack'
+
 gem 'activestorage-cloudinary-service'
 # gem 'sprockets-rails', group: :assets
 
