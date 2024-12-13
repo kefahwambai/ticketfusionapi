@@ -72,7 +72,8 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  config.hosts << /[a-z0-9]+\.ngrok\.io/
+  config.hosts << /[a-z0-9\-]+\.ngrok\.io/
+  config.hosts << /[a-z0-9\-]+\.ngrok-free\.app/
 
   config.action_mailer.delivery_method = :smtp
   host = 'localhost:3000'
@@ -80,25 +81,13 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:         'smtp.gmail.com',
     port:            587,
-    # domain:          'google.com',
-    user_name:       'tickfusion@gmail.com',
-    password:        'braroljejcsqhrwq',
+    user_name:       ENV['MAILER_USERNAME'],
+    password:        ENV['MAILER_PASSWORD'],
     authentication:  'plain',
     enable_starttls: true,
     open_timeout:    5,
-    read_timeout:    5 }
-  
-#   config.action_mailer.delivery_method = :smtp
-# config.action_mailer.smtp_settings = {
-#   address: 'smtp.mailsender.com', # Replace with MailSender SMTP server
-#   port: 587, 
-#   domain: 'trial-jpzkmgq2x2mg059v.mlsender.net', # Your domain
-#   user_name: ENV['MAILSENDER_USERNAME'], # Use environment variable or hardcode
-#   password: ENV['MAILSENDER_PASSWORD'], # Use environment variable or hardcode
-#   authentication: 'plain',
-#   enable_starttls_auto: true
-# }
-
+    read_timeout:    5
+  }
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true

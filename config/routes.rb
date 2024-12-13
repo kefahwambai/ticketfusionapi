@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :tickets do
     member do
       get 'download', to: 'tickets#download_ticket'
-      get 'validate', to: 'tickets#validate_ticket'
+      post 'validate', to: 'tickets#validate'
     end
   end
   resources :events do
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post '/auth/refresh', to: 'authentication#refresh'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-  post 'stkpush', to: 'mpesas#stkpush'
-  post 'callback', to: 'mpesa#callback'
-  post 'stkquery', to: 'mpesas#stkquery'
+  post '/stkpush', to: 'mpesas#stkpush'
+  post '/callback', to: 'mpesas#callback'
+  post '/stkquery', to: 'mpesas#stkquery'
 end

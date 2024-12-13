@@ -1,12 +1,12 @@
 databases:
   - name: postgres
     ipAllowList: []
-    databaseName: ticketfusion
-    user: ticketfusion_user
+    databaseName: ticketfusion_upsi
+    user: ticketfusion_upsi_user
 
 services:
   - type: web
-    name: ticketfusion
+    name: ticketfusion_upsi
     env: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec rails server"

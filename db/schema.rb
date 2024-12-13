@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_23_101018) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_06_143330) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "access_tokens", force: :cascade do |t|
@@ -133,6 +134,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_23_101018) do
     t.datetime "updated_at", null: false
     t.integer "max_quantity"
     t.integer "total_tickets"
+    t.uuid "identifier", default: -> { "gen_random_uuid()" }, null: false
+    t.datetime "validated_at"
+    t.index ["identifier"], name: "index_tickets_on_identifier", unique: true
   end
 
   create_table "users", force: :cascade do |t|

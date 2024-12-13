@@ -31,6 +31,7 @@ module Tickadmin
       end if File.exist?(env_file)
     end
     # Initialize configuration defaults for originally generated Rails version.
+    config.active_job.queue_adapter = :sidekiq
     config.load_defaults 7.0
     config.generators.system_tests = nil
   end

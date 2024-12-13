@@ -1,5 +1,7 @@
 class TicketsController < ApplicationController
   before_action :authenticate_request!, only: [:create, :update, :destroy, :download_ticket]
+  before_action :set_ticket, only: [:validate, :download_ticket, :show]
+
 
   def index
     event = Event.find_by(id: params[:event_id])
@@ -30,21 +32,11 @@ class TicketsController < ApplicationController
   end
 
   def show
-    ticket = Ticket.find_by(id: params[:id])
-    if ticket.nil?
-      render json: { error: 'Ticket not found' }, status: :not_found
-    else
-      render json: ticket, status: :ok
-    end
+    render json: ticket, status: :ok 
   end
 
   def download_ticket
-    ticket = Ticket.find_by(id: params[:id])
-    if ticket.nil?
-      render json: { error: 'Ticket not found' }, status: :not_found
-      return
-    end
-  
+
     begin
       generator = GenerateTicketPdf.new(ticket)
       pdf_file = generator.generate
@@ -55,23 +47,28 @@ class TicketsController < ApplicationController
       pdf_file.close if pdf_file 
     end
   end
-  
 
-  def validate_ticket
-    ticket = Ticket.find_by(id: params[:id])
-    if ticket.nil?
-      render json: { valid: false, message: 'Ticket not found' }, status: :not_found
-    elsif ticket.used
-      render json: { valid: false, message: 'Ticket has already been used' }, status: :unprocessable_entity
+  def validate
+    if @ticket.validated_at.nil?
+      # Mark the ticket as validated by setting the current timestamp
+      @ticket.update(validated_at: Time.current)
+      render json: { status: 'success', message: 'Ticket is valid and will now marked as used.' }
     else
-      render json: { valid: true, message: 'Ticket is valid', ticket: ticket }, status: :ok
+      render json: { status: 'error', message: 'Ticket has already been validated.' }, status: :unprocessable_entity
     end
+  rescue ActiveRecord::RecordNotFound
+    render json: { status: 'error', message: 'Ticket not found.' }, status: :not_found
   end
-  
+    
 
   private
 
+  def set_ticket
+    @ticket = Ticket.find_by(identifier: params[:id])  # Assuming identifier is the UUID and passed as :id
+    render json: { error: 'Ticket not found' }, status: :not_found if @ticket.nil?
+  end
+
   def ticket_params
-    params.require(:ticket).permit(:event_id, :name, :ticket_type, :price, :max_quantity, :start_time, :end_time, :is_group_ticket, :group_size, :total_tickets)
+    params.require(:ticket).permit(:event_id, :identifier, :name, :ticket_type, :price, :max_quantity, :start_time, :end_time, :is_group_ticket, :group_size, :total_tickets)
   end
 end
